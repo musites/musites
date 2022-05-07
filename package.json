@@ -5,6 +5,9 @@
     "packages/*"
   ],
   "scripts": {
+    "dev": "concurrently -n musites,frontend \"yarn workspace musites dev\" \"yarn workspace musites-frontend dev\"",
+    "build": "yarn workspace musites build && yarn workspace musites-frontend build",
+    "lint": "eslint --ext .{js,ts,jsx,tsx} --ignore-path .gitignore . --fix",
     "test": "jest"
   },
   "packageManager": "yarn@1.22.18",
