@@ -1,21 +1,32 @@
 {
-  "name": "musites",
-  "version": "0.0.1",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/musictest/musictest.git"
+  "name": "musites-workspace",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {},
+  "packageManager": "yarn@1.22.18",
+  "resolutions": {
+    "next": "10.2.3",
+    "react": "16.8.0",
+    "react-dom": "16.8.0"
   },
-  "author": {
-    "name": "Il Harper",
-    "email": "afanyiyu@hotmail.com",
-    "url": "https://ilharper.com"
-  },
-  "license": "MIT",
-  "private": false,
-  "type": "commonjs",
-  "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
-  "files": [
-    "lib"
-  ]
+  "devDependencies": {
+    "@types/node": ">=8",
+    "@types/react": ">=16.8.0",
+    "@types/react-dom": ">=16.8.0",
+    "concurrently": "^7",
+    "cross-env": "^7",
+    "eslint": "^8",
+    "eslint-config-prettier": "^8",
+    "eslint-plugin-prettier": "^4",
+    "jest": "^28",
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0",
+    "sass": "^1",
+    "stylelint": "^14",
+    "stylelint-config-prettier": "^9",
+    "stylelint-config-standard-scss": "^2",
+    "typescript": "^4"
+  }
 }

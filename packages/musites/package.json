@@ -1,0 +1,21 @@
+{
+  "name": "musites",
+  "version": "0.0.2",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/musites/musites.git"
+  },
+  "author": {
+    "name": "Il Harper",
+    "email": "afanyiyu@hotmail.com",
+    "url": "https://ilharper.com"
+  },
+  "license": "MIT",
+  "private": false,
+  "type": "commonjs",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ]
+}
