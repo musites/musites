@@ -1,0 +1,17 @@
+{
+  "name": "musites-frontend",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "next": "10.2.3",
+    "next-transpile-modules": "^7",
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0",
+    "typescript": "^4"
+  },
+  "scripts": {
+    "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider next dev",
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider next build",
+    "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider next start"
+  }
+}
