@@ -1,0 +1,36 @@
+name: Build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Build
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '17'
+
+      - name: Build Package
+        run: |
+          corepack enable
+          yarn
+          yarn build
+          yarn workspace musites pack --filename musites.tgz
+        shell: bash
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: musites-${{ github.sha }}
+          path: packages/musites/musites.tgz
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: musites-frontend-${{ github.sha }}
+          path: packages/musites-frontend/out

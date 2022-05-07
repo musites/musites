@@ -1,0 +1,29 @@
+name: Build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Build
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '17'
+
+      - name: Build and Test Package
+        run: |
+          corepack enable
+          yarn
+          yarn build
+          yarn test
+        shell: bash
+
+      - name: Upload Coverage Reports to Codecov
+        uses: codecov/codecov-action@v3
