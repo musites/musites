@@ -18,6 +18,7 @@
     "concurrently": "^7",
     "cross-env": "^7",
     "eslint": "^8",
+    "eslint-config-next": "^12",
     "eslint-config-prettier": "^8",
     "eslint-plugin-prettier": "^4",
     "jest": "^28",
