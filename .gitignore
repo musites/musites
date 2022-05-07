@@ -98,9 +98,5 @@ es/
 # typescript
 *.tsbuildinfo
 
-# Local files
-community/
-test/
-
 # Temp files
 temp/
