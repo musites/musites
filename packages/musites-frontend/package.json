@@ -11,7 +11,7 @@
   },
   "scripts": {
     "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider next dev",
-    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider next build",
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider next build && cross-env NODE_OPTIONS=--openssl-legacy-provider next export",
     "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider next start"
   }
 }
