@@ -35,8 +35,7 @@ const sampleDatabaseData = {
 const getRightAnswer: (source: string) => string = (source) =>
   `Music ${source[6].toUpperCase()} Normal`
 
-const getWrongAnswer: (source: string) => string = (source) =>
-  `The Wrong Answer`
+const getWrongAnswer: (source: string) => string = () => `The Wrong Answer`
 
 describe('Musites database', () => {
   const badDataBaseError = 'Musites: Bad database'
