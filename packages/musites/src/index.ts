@@ -8,12 +8,12 @@ export class Game {
     /**
      * Game database.
      */
-    database: Database,
+    set: DatabaseSet,
 
     /**
      * Game options.
      */
-    options: Partial<GameOptions>
+    options?: Partial<GameOptions>
   ) {
     // Parse game options
     // and then use `this.options` anywhere else.
@@ -25,7 +25,7 @@ export class Game {
 
     // Get the music used in this game,
     // and transform Music to Item.
-    const musicData = database.data.music
+    const musicData = set.music
     const music: Item[] = musicData.flatMap((x) =>
       x.source.map((y) => {
         let choices: string[] | null = null
@@ -37,20 +37,20 @@ export class Game {
             .filter((z) => x !== z)
             .map((z) => z.title[0])
           let lottery: string[] = []
-          const choicesResult: string[] = [x.title[0]]
+          choices = [x.title[0]]
 
           // We need to roll
           // `this.options.choiceCount - 1` choice(s).
-          while (choicesResult.length < this.options.choiceCount) {
-            if (!lottery) {
+          while (choices.length < this.options.choiceCount) {
+            if (!lottery.length) {
               // Copy `choicesData` to lottery
               lottery = choicesData.concat()
             }
 
             // Roll
             const i = Math.floor(Math.random() * lottery.length)
-            lottery = lottery.splice(i, 1)
-            choicesResult.push(lottery[i])
+            choices.push(lottery[i])
+            lottery.splice(i, 1)
           }
         }
         return {
@@ -72,7 +72,7 @@ export class Game {
     let lottery: Item[] = []
 
     while (this.data.length < this.options.count) {
-      if (!lottery) {
+      if (!lottery.length) {
         // Copy music to lottery
         lottery = music.concat()
       }
@@ -81,8 +81,8 @@ export class Game {
       const i = Math.floor(Math.random() * lottery.length)
       const item = lottery[i]
 
+      lottery.splice(i, 1)
       if (item !== lastRolled) {
-        lottery = lottery.splice(i, 1)
         lastRolled = item
         this.data.push(item)
       }
@@ -117,11 +117,13 @@ export class Game {
    */
   getQuestions(): Question[] | QuestionWithChoices[] {
     return this.options.mode === 'choice'
-      ? this.data.map((x) => ({
+      ? this.data.map((x, i) => ({
+          id: i + 1,
           source: x.source,
           choices: x.choices,
         }))
-      : this.data.map((x) => ({
+      : this.data.map((x, i) => ({
+          id: i + 1,
           source: x.source,
         }))
   }
@@ -133,7 +135,7 @@ export class Game {
    * @param title The answer.
    */
   answer(id: number, title: string) {
-    this.data[id].answer = title
+    this.data[id - 1].answer = title
   }
 
   /**
@@ -157,7 +159,11 @@ export class Game {
     } else {
       // Use fuzzy matching.
       correct = this.data.filter(
-        (x) => x.answer !== null && x.title.some((y) => x.answer!.includes(y))
+        (x) =>
+          x.answer !== null &&
+          x.title
+            .map((x) => x.toLowerCase())
+            .some((y) => x.answer!.toLowerCase().includes(y))
       ).length
     }
 
@@ -166,39 +172,67 @@ export class Game {
       correct,
       wrong: this.options.count - correct,
       accuracy: correct / this.options.count,
+      data: this.data,
     }
   }
 
   //#endregion
 }
 
-/**
- * The Musites database.
- */
 export class Database {
   constructor(
     /**
      * Musites data.
      */
-    public data: {
+    data: {
+      name: string
+      sets: {
+        name: string
+        music: Music[]
+      }[]
+    }
+  ) {
+    if (!data || !data.name || !data.sets)
+      throw new Error('Musites: Bad database')
+
+    this.name = data.name
+    this.sets = data.sets.map((x) => new DatabaseSet(x))
+  }
+
+  public name: string
+  public sets: DatabaseSet[]
+}
+
+/**
+ * The Musites database set.
+ */
+export class DatabaseSet {
+  constructor(
+    /**
+     * Set data.
+     */
+    data: {
       name: string
       music: Music[]
     }
   ) {
     if (!data || !data.name || !data.music)
-      throw new Error('Musites: Bad database')
+      throw new Error('Musites: Bad database set')
 
-    this.musicList = data.music.map((x) => x.title[0])
-    this.count = this.musicList.length
+    this.name = data.name
+    this.music = data.music.concat()
+    this.count = this.music.length
   }
 
-  /**
-   * List of tracks in this database.
-   */
-  public musicList: string[]
+  public name: string
 
   /**
-   * Count of tracks in this database.
+   * List of tracks in this set.
+   */
+  public music: Music[]
+
+  /**
+   * Count of tracks in this set.
    */
   public count: number
 }
@@ -251,6 +285,7 @@ interface Music {
  * A question item.
  */
 export interface Question {
+  id: number
   source: string
 }
 
@@ -266,6 +301,7 @@ export interface Result {
   correct: number
   wrong: number
   accuracy: number
+  data: Item[]
 }
 
 //#endregion
