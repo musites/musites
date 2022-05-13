@@ -179,18 +179,15 @@ export class Game {
   //#endregion
 }
 
+/**
+ * The Musites database.
+ */
 export class Database {
   constructor(
     /**
      * Musites data.
      */
-    data: {
-      name: string
-      sets: {
-        name: string
-        music: Music[]
-      }[]
-    }
+    data: DatabaseData
   ) {
     if (!data || !data.name || !data.sets)
       throw new Error('Musites: Bad database')
@@ -211,10 +208,7 @@ export class DatabaseSet {
     /**
      * Set data.
      */
-    data: {
-      name: string
-      music: Music[]
-    }
+    data: DatabaseSetData
   ) {
     if (!data || !data.name || !data.music)
       throw new Error('Musites: Bad database set')
@@ -260,6 +254,16 @@ const defaultGameOptions: GameOptions = {
 //#endregion
 
 //#region Data Types
+
+interface DatabaseData {
+  name: string
+  sets: DatabaseSetData[]
+}
+
+interface DatabaseSetData {
+  name: string
+  music: Music[]
+}
 
 /**
  * An item in the data of a Musites game,
