@@ -18,10 +18,10 @@ export class Game {
     // Parse game options
     // and then use `this.options` anywhere else.
     // Do not use `options`.
-    this.options = Object.assign({}, defaultGameOptions, options)
+    this.#options = Object.assign({}, defaultGameOptions, options)
 
     // Construct data
-    this.data = []
+    this.#data = []
 
     // Get the music used in this game,
     // and transform Music to Item.
@@ -30,7 +30,7 @@ export class Game {
       x.source.map((y) => {
         let choices: string[] | null = null
 
-        if (this.options.mode === 'choice') {
+        if (this.#options.mode === 'choice') {
           // Generate choices.
           // `choicesData` is the list of all wrong choices.
           const choicesData = musicData
@@ -41,7 +41,7 @@ export class Game {
 
           // We need to roll
           // `this.options.choiceCount - 1` choice(s).
-          while (choices.length < this.options.choiceCount) {
+          while (choices.length < this.#options.choiceCount) {
             if (!lottery.length) {
               // Copy `choicesData` to lottery
               lottery = choicesData.concat()
@@ -71,7 +71,7 @@ export class Game {
     let lastRolled: Item | null = null
     let lottery: Item[] = []
 
-    while (this.data.length < this.options.count) {
+    while (this.#data.length < this.#options.count) {
       if (!lottery.length) {
         // Copy music to lottery
         lottery = music.concat()
@@ -84,7 +84,7 @@ export class Game {
       lottery.splice(i, 1)
       if (item !== lastRolled) {
         lastRolled = item
-        this.data.push(item)
+        this.#data.push(item)
       }
     }
   }
@@ -92,19 +92,19 @@ export class Game {
   /**
    * Internal game options.
    */
-  private options: GameOptions
+  #options: GameOptions
 
   //#region State
 
   /**
    * Internal state of game.
    */
-  private state: 'ingame' | 'completed' = 'ingame'
+  #state: 'ingame' | 'completed' = 'ingame'
 
   /**
    * Internal state of game data.
    */
-  private data: Item[]
+  #data: Item[]
 
   //#endregion
 
@@ -116,13 +116,13 @@ export class Game {
    * @returns List of questions.
    */
   getQuestions(): Question[] | QuestionWithChoices[] {
-    return this.options.mode === 'choice'
-      ? this.data.map((x, i) => ({
+    return this.#options.mode === 'choice'
+      ? this.#data.map((x, i) => ({
           id: i + 1,
           source: x.source,
           choices: x.choices,
         }))
-      : this.data.map((x, i) => ({
+      : this.#data.map((x, i) => ({
           id: i + 1,
           source: x.source,
         }))
@@ -135,7 +135,7 @@ export class Game {
    * @param title The answer.
    */
   answer(id: number, title: string) {
-    this.data[id - 1].answer = title
+    this.#data[id - 1].answer = title
   }
 
   /**
@@ -144,21 +144,21 @@ export class Game {
    * @returns The result of the game.
    */
   submit(): Result {
-    if (this.state === 'completed')
+    if (this.#state === 'completed')
       throw new Error('Musites: Game already finished.')
-    this.state = 'completed'
+    this.#state = 'completed'
 
     // Now calc the result.
     let correct = 0
 
-    if (this.options.mode === 'choice') {
+    if (this.#options.mode === 'choice') {
       // Use exact matching.
-      correct = this.data.filter(
+      correct = this.#data.filter(
         (x) => x.answer !== null && x.title[0] === x.answer
       ).length
     } else {
       // Use fuzzy matching.
-      correct = this.data.filter(
+      correct = this.#data.filter(
         (x) =>
           x.answer !== null &&
           x.title
@@ -168,11 +168,11 @@ export class Game {
     }
 
     return {
-      total: this.options.count,
+      total: this.#options.count,
       correct,
-      wrong: this.options.count - correct,
-      accuracy: correct / this.options.count,
-      data: this.data,
+      wrong: this.#options.count - correct,
+      accuracy: correct / this.#options.count,
+      data: this.#data,
     }
   }
 
