@@ -234,10 +234,15 @@ export class DatabaseSet {
 //#region Option
 
 /**
+ * Musites game mode.
+ */
+export type GameMode = 'choice' | 'fill'
+
+/**
  * Musites game options.
  */
 export interface GameOptions {
-  mode: 'choice' | 'fill'
+  mode: GameMode
   count: number
   choiceCount: number
 }
