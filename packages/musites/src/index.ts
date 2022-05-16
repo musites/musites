@@ -149,6 +149,7 @@ export class Game {
     this.#state = 'completed'
 
     // Now calc the result.
+    const total = this.#options.count
     let correct = 0
 
     if (this.#options.mode === 'choice') {
@@ -167,11 +168,25 @@ export class Game {
       ).length
     }
 
+    const accuracy = correct / this.#options.count
+    const wrong = this.#options.count - correct
+
+    // Calc ranking.
+    let ranking = 'C'
+    if (accuracy > 0.45) ranking = 'B'
+    if (accuracy > 0.72) ranking = 'A'
+    if (total >= 10) {
+      if (wrong === 2) ranking = 'S'
+      if (wrong === 1) ranking = 'SS'
+      if (wrong === 0) ranking = 'SSS'
+    }
+
     return {
-      total: this.#options.count,
+      total,
       correct,
-      wrong: this.#options.count - correct,
-      accuracy: correct / this.#options.count,
+      wrong,
+      accuracy,
+      ranking,
       data: this.#data,
     }
   }
@@ -310,6 +325,7 @@ export interface Result {
   correct: number
   wrong: number
   accuracy: number
+  ranking: string
   data: Item[]
 }
 

@@ -135,6 +135,7 @@ describe('Musites mode choice', () => {
     expect(result.total).toBe(4)
     expect(result.correct).toBe(3)
     expect(result.wrong).toBe(1)
+    expect(result.ranking).toBe('A')
   })
 })
 
@@ -173,5 +174,6 @@ describe('Musites mode fill', () => {
     expect(result.total).toBe(4)
     expect(result.correct).toBe(3)
     expect(result.wrong).toBe(1)
+    expect(result.ranking).toBe('A')
   })
 })
