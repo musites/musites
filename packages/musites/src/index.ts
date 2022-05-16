@@ -52,6 +52,9 @@ export class Game {
             choices.push(lottery[i])
             lottery.splice(i, 1)
           }
+
+          // Shuffle
+          shuffle(choices)
         }
         return {
           source: y,
@@ -327,6 +330,23 @@ export interface Result {
   accuracy: number
   ranking: string
   data: Item[]
+}
+
+//#endregion
+
+//#region Utils
+
+function shuffle(array: unknown[]) {
+  let m = array.length
+  let t: unknown
+  let i: number
+  while (m) {
+    i = Math.floor(Math.random() * m--)
+    t = array[m]
+    array[m] = array[i]
+    array[i] = t
+  }
+  return array
 }
 
 //#endregion
