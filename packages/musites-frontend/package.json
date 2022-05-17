@@ -6,6 +6,7 @@
     "out"
   ],
   "dependencies": {
+    "infrastry": "^0.0.2",
     "next": "10.2.3",
     "next-transpile-modules": "^7",
     "react": ">=16.8.0",
