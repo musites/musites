@@ -23,6 +23,7 @@ jobs:
           yarn
           yarn build
           yarn workspace musites pack --filename musites.tgz
+          yarn workspace musites-frontend pack --filename musites-frontend.tgz
         shell: bash
 
       - uses: actions/upload-artifact@v2
@@ -33,4 +34,4 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: musites-frontend-${{ github.sha }}
-          path: packages/musites-frontend/out
+          path: packages/musites-frontend/musites-frontend.tgz
