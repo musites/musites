@@ -278,12 +278,12 @@ const defaultGameOptions: GameOptions = {
 
 //#region Data Types
 
-interface DatabaseData {
+export interface DatabaseData {
   name: string
   sets: DatabaseSetData[]
 }
 
-interface DatabaseSetData {
+export interface DatabaseSetData {
   name: string
   music: Music[]
 }
