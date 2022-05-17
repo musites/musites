@@ -9,6 +9,7 @@
     "@mdi/js": "^6.7.96",
     "@mdi/react": "^1.6.0",
     "infrastry": "^0.0.2",
+    "musites": "^0.0.4",
     "next": "10.2.3",
     "next-transpile-modules": "^7",
     "react": ">=16.8.0",
