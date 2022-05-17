@@ -1,7 +1,10 @@
 {
   "name": "musites-frontend",
   "version": "0.0.1",
-  "private": true,
+  "private": false,
+  "files": [
+    "out"
+  ],
   "dependencies": {
     "next": "10.2.3",
     "next-transpile-modules": "^7",
