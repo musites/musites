@@ -1,0 +1,151 @@
+:root {
+  --inf-acc-val: 290;
+}
+
+:root,
+html,
+body {
+  background-color: var(--inf-b);
+}
+
+.musites-button {
+  /* Basic */
+  cursor: pointer;
+
+  /* Fill */
+  margin: 18px 0;
+  background-color: var(--inf-b);
+  border: 1px var(--inf-acc-l) solid;
+  border-radius: 4px;
+  box-shadow: 0 0 3px var(--inf-acc-dd);
+
+  /* Text */
+  padding: 12px;
+  font-size: 1.2rem;
+  text-align: start;
+  word-wrap: break-word;
+
+  /* Transition */
+  transition: box-shadow 0.1s ease, background-color 0.1s ease;
+}
+
+.musites-button:hover {
+  background-color: var(--inf-bb);
+  box-shadow: 0 0 4px var(--inf-acc-ddd);
+}
+
+.musites-button:active {
+  background-color: var(--inf-bbb);
+  box-shadow: 0 0 4px var(--inf-acc-ddd);
+}
+
+.musites-index-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.musites-index-footer {
+  padding: 24px;
+  text-align: center;
+  flex-grow: 0;
+}
+
+.musites-index-footer > span {
+  color: var(--inf-acc-ddd);
+}
+
+.musites-index-about {
+  /* Position */
+  position: fixed;
+  left: 18px;
+  top: 18px;
+  right: 18px;
+  bottom: 18px;
+  width: auto;
+  height: auto;
+
+  /* Style */
+  background-color: var(--inf-b);
+  border-radius: 4px;
+  border: 1px var(--inf-acc-l) solid;
+  box-shadow: 0 0 3px var(--inf-acc-dd);
+}
+
+.musites-index-about * {
+  width: auto;
+  height: auto;
+}
+
+.musites-index-about > * {
+  position: absolute;
+}
+
+.musites-index-about-content {
+  left: 24px;
+  top: 24px;
+  right: 24px;
+  bottom: 80px;
+  overflow-y: auto;
+  word-wrap: break-word;
+}
+
+.musites-index-about-content > div {
+  padding-bottom: 48px;
+}
+
+.musites-index-about-close {
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+
+  top: auto;
+  bottom: 18px;
+}
+
+.musites-section {
+  padding: 0 2rem;
+  min-height: 500px;
+}
+
+.musites-section * {
+  word-wrap: break-word;
+}
+
+.musites-section p {
+  margin: 12px 0;
+}
+
+.musites-section-index .inf-button {
+  margin: 24px 0;
+}
+
+p.musites-section-index-name {
+  font-size: 3rem;
+  margin: 36px 0;
+}
+
+p.musites-section-set-header {
+  margin: 12px 18px;
+}
+
+.musites-section-set-list {
+  align-items: stretch;
+}
+
+@media (min-width: 800px) {
+  .musites-section-set-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+
+  .musites-section-set-list button {
+    width: 300px;
+  }
+}
+
+.musites-section-result-ranking {
+  font-size: 5rem;
+  font-weight: bold;
+  margin: 24px 0;
+}

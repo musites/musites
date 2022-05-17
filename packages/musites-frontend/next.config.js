@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 
-const withTM = require('next-transpile-modules')([])
+const withTM = require('next-transpile-modules')(['infrastry'])
 
 const nextConfig = {
   reactStrictMode: true,
